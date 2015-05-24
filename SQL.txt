@@ -1,0 +1,77 @@
+Query 1:
+
+Select title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL
+FROM spicymov.movies
+GROUP BY title
+ORDER BY rtAudienceRating DESC 
+LIMIT 20;
+
+Query 2:
+
+First for the movie selection:
+
+SELECT title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL 
+FROM spicymov.movies
+WHERE title = "(insert requestedMovieName here)"
+GROUP BY title;
+
+Then for the tags for the movie:
+
+SELECT DISTINCT tagText
+FROM spicymov.movie_tagText AS T, spicymovies AS M, spicymov.movie_tag_identification AS TID
+WHERE M.title = "(insert requestedMovieName here)" AND TID.movie_ID = M.id AND TID.tagID = T.tagID;
+
+
+Query 3:
+
+
+Select DISTINCT title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL
+FROM spicymov.movie_genres AS MG, spicymov.movies AS M
+WHERE MG.genre = "(insert requestedGenre here)" AND M.id = MG.movieID
+ORDER BY rtAudienceRating DESC
+LIMIT 20;
+
+
+Query 4:
+
+SELECT title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL
+FROM spicymov.movies AS M
+WHERE M.id IN (Select movieID FROM spicymov.directors_table AS DT 
+	       WHERE DT.directorName = "(insert requestedDirector here)")
+GROUP BY title;
+
+Query 5:
+
+SELECT title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL
+FROM spicymov.movies AS M
+WHERE M.id IN (SELECT A.movieID
+	       FROM spicymov.actors_table AS A
+               WHERE A.actorName = "(insert requestedActor here)")
+GROUP BY title;
+
+Query 6:
+
+Select title, yearProduced, rtAudienceRating, rtPictureURL, imdbPictureURL
+FROM spicymov.movies AS M
+WHERE M.id IN (SELECT movie_ID
+               FROM spicymov.movie_tagtext AS T, spicymov.movie_tag_identification AS TI
+               WHERE T.tagText = "(insert requestedtag here)")
+GROUP BY title;
+
+Query 7:
+
+SELECT directorName, AVG(rtAudienceRating)
+FROM spicymov.movies AS M, spicymov.directors_table AS A
+WHERE M.id = A.movieID
+GROUP BY directorName
+ORDER BY AVG(rtAudienceRating) DESC
+LIMIT 20;
+
+Query 8:
+
+SELECT directorName, AVG(rtAudienceRating)
+FROM spicymov.movies AS M, spicymov.actors_table AS A
+WHERE M.id = A.movieID
+GROUP BY actorName
+ORDER BY AVG(rtAudienceRating) DESC
+LIMIT 20;

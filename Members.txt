@@ -1,0 +1,20 @@
+Members from this group:
+
+Jaboree Muhammad: Helped with developing GUI and code writing. 
+
+
+Edward Lawson: Came out with the idea of the GUI representation and implementation. 
+
+
+Michael Anderson: worked on queries. 
+
+
+Alexandru Malos: worked on the queries. 
+
+
+Kinard Thomas: worked on the queries and overall implementation.
+
+
+Jonathon McCraney: worked on the JDBC driver and implementing everything together.
+
+We learned a lot at the end by being able to work as a team and making sure that everything runs efficiently on all of our systems. We have also learned how powerful the JDBC driver can be to be able to run our java program and pull up our results. We also learned how powerful a database can be if designed appropriately and how it can bring a tremendous amount of usability for people. Overall we had a great time developing and implementing this application. 

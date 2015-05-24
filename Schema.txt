@@ -1,0 +1,91 @@
+create schema spicymov;
+
+CREATE TABLE 'spicymov'.'movies' (
+	'id' INT NOT NULL,
+	'title' TEXT NULL,
+	'imdbID' INT NULL,
+	'imdbPictureURL' TEXT NULL,
+	'yearProduced' YEAR NULL,
+	'rtPictureURL' TEXT NULL,
+	'rtAudienceRating' DOUBLE NULL,
+	'rtAudienceScore' INT NULL,
+	PRIMARY KEY ('id'));
+
+CREATE TABLE `spicymov`.`movie_tagText` (
+  
+	`tagID` INT NOT NULL,
+  
+	`tagText` TEXT NULL,
+  
+	PRIMARY KEY (`tagID`));
+
+CREATE TABLE `spicymov`.`movie_tag_identification` (
+  
+	`movie_ID` INT NOT NULL,
+  
+	`tagID` INT NOT NULL,
+  
+	`tstamp` FLOAT NULL,
+  
+	`userID` INT NOT NULL,
+  
+	PRIMARY KEY (`movie_ID`, `tagID`, `userID`),
+  
+	INDEX `fk2_idx` (`tagID` ASC),
+  
+	CONSTRAINT `fk1`
+    
+	FOREIGN KEY (`movie_ID`)
+    
+	REFERENCES `spicymov`.`movies` (`id`)
+    
+	ON DELETE NO ACTION
+    
+	ON UPDATE NO ACTION,
+  
+	CONSTRAINT `fk2`
+    
+	FOREIGN KEY (`tagID`)
+    
+	REFERENCES `spicymov`.`movie_tagtext` (`tagID`)
+    
+	ON DELETE NO ACTION
+    
+	ON UPDATE NO ACTION);
+
+Create table spicymov.movie_genres(
+
+	movieID INT,
+
+	genre VARCHAR(100),
+
+	Primary Key(movieID, genre),
+
+	Foreign Key(movieID) references spicymov.movies(id));
+
+create table spicymov.directors_table(
+	
+	movieID INT,
+    
+	director_ID VARCHAR(200),
+    
+	directorName VARCHAR(200),
+    
+	Primary Key (movieID, director_ID),
+    
+	Foreign Key(movieID) References spicymov.movies(id)
+);
+
+create table spicymov.actors_table(
+	
+	movieID INT NOT NULL,
+    
+	actorID VARCHAR(200) NULL,
+    
+	actorName VARCHAR(200) NULL,
+    
+	ranking INT NULL,
+    
+	Primary Key(movieID, actorID),
+    
+	Foreign Key(movieID) references spicymov.movies(id));
